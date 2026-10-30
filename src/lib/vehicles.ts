@@ -289,7 +289,7 @@ export const CARS: Vehicle[] = records.map((car) => ({
   photos: [{ src: car.img, label: "Fotografía del catálogo" }],
 }));
 export const getVehicle = (slug: string) => CARS.find((car) => car.slug === slug);
-export const isUnavailable = (car: Vehicle) => car.specs.Disponibilidad === "No disponible";
+export const isUnavailable = (car: Vehicle) => car.specs["Disponibilidad"] === "No disponible";
 export const SPEC_LABELS = [
   "Marca",
   "Modelo",
