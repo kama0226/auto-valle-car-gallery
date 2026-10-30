@@ -3,7 +3,12 @@ import corolla from "@/assets/toyota-corolla-2017.png.asset.json";
 import sienna from "@/assets/toyota-sienna-2017.png.asset.json";
 import rogue from "@/assets/nissan-rogue-2018.png.asset.json";
 import jetta2016 from "@/assets/volkswagen-jetta-2016.png.asset.json";
-import jetta2017 from "@/assets/volkswagen-jetta-2017.png.asset.json";
+import jetta2017Front from "@/assets/volkswagen-jetta-2017-1.png.asset.json";
+import jetta2017ThreeQuarter from "@/assets/volkswagen-jetta-2017-2.png.asset.json";
+import jetta2017RearThreeQuarter from "@/assets/volkswagen-jetta-2017-3.png.asset.json";
+import jetta2017Rear from "@/assets/volkswagen-jetta-2017-4.png.asset.json";
+import jetta2017Dashboard from "@/assets/volkswagen-jetta-2017-5.png.asset.json";
+import jetta2017Seats from "@/assets/volkswagen-jetta-2017-6.png.asset.json";
 
 export const CATEGORY_OPTIONS = [
   { id: "sedan", label: "SEDAN" },
@@ -26,6 +31,8 @@ export type Vehicle = {
   desc: string;
   price: string | null;
   photos: { src: string; label: string }[];
+  /** Owner-supplied photos shown after the cover photo in the gallery. */
+  extraPhotos?: { src: string; label: string }[];
   specs: Partial<Record<string, string>>;
   currency?: "MXN";
   priceConfirmed?: boolean;
@@ -252,7 +259,14 @@ const records = [
     model: "Jetta TSI",
     year: 2017,
     cat: "sedan",
-    img: jetta2017.url,
+    img: jetta2017Front.url,
+    extraPhotos: [
+      { src: jetta2017ThreeQuarter.url, label: "Vista frontal lateral" },
+      { src: jetta2017RearThreeQuarter.url, label: "Vista trasera lateral" },
+      { src: jetta2017Rear.url, label: "Vista trasera" },
+      { src: jetta2017Dashboard.url, label: "Tablero y quemacocos" },
+      { src: jetta2017Seats.url, label: "Asientos delanteros" },
+    ],
     desc: "Volkswagen Jetta TSI 2017, versión equipada, motor 1.4 TSI de 4 cilindros, automático, con 82.000 km.",
     price: "$182,000",
     currency: "MXN",
@@ -284,9 +298,9 @@ const records = [
     ],
   },
 ] satisfies Omit<Vehicle, "photos">[];
-export const CARS: Vehicle[] = records.map((car) => ({
+export const CARS: Vehicle[] = records.map((car: Omit<Vehicle, "photos">) => ({
   ...car,
-  photos: [{ src: car.img, label: "Fotografía del catálogo" }],
+  photos: [{ src: car.img, label: "Fotografía del catálogo" }, ...(car.extraPhotos ?? [])],
 }));
 export const getVehicle = (slug: string) => CARS.find((car) => car.slug === slug);
 export const isUnavailable = (car: Vehicle) => car.specs["Disponibilidad"] === "No disponible";
