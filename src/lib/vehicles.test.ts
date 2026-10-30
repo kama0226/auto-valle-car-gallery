@@ -117,7 +117,12 @@ describe('Vehicle information rules', () => {
     for (const car of CARS) expect(vehicleSpec(car, 'VIN')).toBe('Consultar información');
     for (const car of CARS.filter(car => !['toyota-corolla-2017', 'volkswagen-jetta-2018', 'volkswagen-jetta-2017', 'volkswagen-jetta-2016', 'toyota-sienna-2017'].includes(car.slug))) expect(vehicleSpec(car, 'Ubicación')).toBe('Consultar información');
   });
-  it('does not fabricate additional photos', () => { for (const car of CARS) expect(car.photos).toEqual([{ src: car.img, label: 'Fotografía del catálogo' }]); });
+  it('does not fabricate additional photos', () => { for (const car of CARS.filter(c => c.slug !== 'volkswagen-jetta-2017')) expect(car.photos).toEqual([{ src: car.img, label: 'Fotografía del catálogo' }]); });
+  it('uses the first supplied 2017 Jetta photo as cover followed by the five additional photos', () => {
+    const car = getVehicle('volkswagen-jetta-2017')!;
+    expect(car.img).toContain('/volkswagen-jetta-2017-1.png');
+    expect(car.photos.map(p => p.src.split('/').pop())).toEqual([1, 2, 3, 4, 5, 6].map(n => `volkswagen-jetta-2017-${n}.png`));
+  });
   it('assigns different images to all three Jettas', () => {
     const imgs = ['volkswagen-jetta-2016', 'volkswagen-jetta-2017', 'volkswagen-jetta-2018'].map(s => getVehicle(s)?.img);
     expect(new Set(imgs).size).toBe(3);
