@@ -169,7 +169,9 @@ const records = [
       label: `Fotografía adicional ${index + 1}`,
     })),
     desc: "Toyota Sienna SE (Sport Edition) 2017, automática, con 87.000 km, interiores de piel y aire de triple zona.",
-    price: null,
+    price: "$295,000",
+    currency: "MXN",
+    priceConfirmed: true,
     specs: {
       Kilometraje: "87.000 km",
       Cilindros: "6",

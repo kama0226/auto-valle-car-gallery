@@ -9,7 +9,7 @@ describe('Vehicle information rules', () => {
     expect(sienna).toMatchObject({ name: 'Toyota Sienna', brand: 'Toyota', year: 2017, model: 'Sienna SE (Sport Edition)', cat: 'van' });
     expect(sienna?.img).toContain('/toyota-sienna-2017.png');
   });
-  it.each([['Kilometraje', '87.000 km'], ['Cilindros', '6'], ['Transmisión', 'Automática'], ['Combustible', 'Gasolina'], ['Color exterior', 'Blanco'], ['Color interior', 'Negro'], ['Estado general', 'Excelentes condiciones'], ['Precio', 'Consultar información'], ['Motor', 'Consultar información'], ['Disponibilidad', 'Disponible']])('records supplied Sienna %s without inheriting Ford data', (field, value) => {
+  it.each([['Kilometraje', '87.000 km'], ['Cilindros', '6'], ['Transmisión', 'Automática'], ['Combustible', 'Gasolina'], ['Color exterior', 'Blanco'], ['Color interior', 'Negro'], ['Estado general', 'Excelentes condiciones'], ['Precio', '$295,000 MXN'], ['Motor', 'Consultar información'], ['Disponibilidad', 'Disponible']])('records supplied Sienna %s without inheriting Ford data', (field, value) => {
     expect(sienna && vehicleSpec(sienna, field)).toBe(value);
   });
   it('preserves Sienna equipment and seller documentation', () => {
@@ -88,7 +88,7 @@ describe('Vehicle information rules', () => {
   it('keeps supplied Jetta and Corolla prices and years and preserves the other vehicles', () => {
     expect(CARS.map(c => [c.name, c.year, c.price])).toEqual([
       ['Volkswagen Jetta', 2018, '$178,000'], ['Toyota Corolla', 2017, '$208,000'],
-      ['Toyota Sienna', 2017, null], ['Volkswagen Jetta', 2016, '$195,000'],
+      ['Toyota Sienna', 2017, '$295,000'], ['Volkswagen Jetta', 2016, '$195,000'],
       ['Nissan Rogue', 2018, '$195,000'], ['Volkswagen Jetta', 2017, '$182,000'],
     ]);
   });

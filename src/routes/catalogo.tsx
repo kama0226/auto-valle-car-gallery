@@ -41,7 +41,7 @@ function Catalogo() {
       <main className="mx-auto w-full max-w-[1600px] px-4 py-12 sm:px-8 lg:px-12">
         <Button asChild variant="link" className="mb-4 h-auto p-0 text-muted-foreground"><Link to="/"><ArrowLeft />Volver a Inicio</Link></Button>
         <h1 className="font-display text-6xl">Catálogo</h1>
-        <p className="mt-2 text-muted-foreground">El precio de cada vehículo indica su moneda; los precios de ejemplo están identificados.</p>
+        <p className="mt-2 text-muted-foreground">Grandes autos, grandes oportunidades. ¡Elige el tuyo!</p>
         <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div role="group" aria-label="Filtrar por categoría" className="flex flex-wrap gap-2">
             {CATS.map((c) => (
