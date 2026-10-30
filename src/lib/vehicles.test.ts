@@ -83,7 +83,7 @@ describe('Vehicle information rules', () => {
     expect(CARS.filter(c => c.cat === 'trabajo').map(c => c.slug)).toEqual([]);
     expect(CARS.filter(c => c.cat === 'clasicos').map(c => c.slug)).toEqual([]);
     expect(CARS.filter(c => c.cat === 'suv').map(c => c.slug)).toEqual(['nissan-rogue-2018']);
-    expect(CARS.filter(c => c.cat === 'van').map(c => c.slug)).toEqual(['toyota-sienna-2017', 'nissan-rogue-2018']);
+    expect(CARS.filter(c => c.cat === 'van').map(c => c.slug)).toEqual(['toyota-sienna-2017']);
   });
   it('keeps supplied Jetta and Corolla prices and years and preserves the other vehicles', () => {
     expect(CARS.map(c => [c.name, c.year, c.price])).toEqual([
