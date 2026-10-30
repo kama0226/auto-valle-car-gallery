@@ -1,4 +1,14 @@
 import jetta from "@/assets/volkswagen-jetta-2018.png.asset.json";
+import corollaExtra1 from "@/assets/toyota-corolla-2017-extra-1.png.asset.json";
+import corollaExtra2 from "@/assets/toyota-corolla-2017-extra-2.png.asset.json";
+import corollaExtra3 from "@/assets/toyota-corolla-2017-extra-3.png.asset.json";
+import corollaExtra4 from "@/assets/toyota-corolla-2017-extra-4.png.asset.json";
+import corollaExtra5 from "@/assets/toyota-corolla-2017-extra-5.png.asset.json";
+import siennaExtra1 from "@/assets/toyota-sienna-2017-extra-1.png.asset.json";
+import siennaExtra2 from "@/assets/toyota-sienna-2017-extra-2.png.asset.json";
+import siennaExtra3 from "@/assets/toyota-sienna-2017-extra-3.png.asset.json";
+import siennaExtra4 from "@/assets/toyota-sienna-2017-extra-4.png.asset.json";
+import siennaExtra5 from "@/assets/toyota-sienna-2017-extra-5.png.asset.json";
 import jetta2018Extra1 from "@/assets/volkswagen-jetta-2018-extra-1.png.asset.json";
 import jetta2018Extra2 from "@/assets/volkswagen-jetta-2018-extra-2.png.asset.json";
 import jetta2018Extra3 from "@/assets/volkswagen-jetta-2018-extra-3.png.asset.json";
@@ -104,6 +114,10 @@ const records = [
     year: 2017,
     cat: "sedan",
     img: corolla.url,
+    extraPhotos: [corollaExtra1, corollaExtra2, corollaExtra3, corollaExtra4, corollaExtra5].map((photo, index) => ({
+      src: photo.url,
+      label: `Fotografía adicional ${index + 1}`,
+    })),
     desc: "Toyota Corolla Sport 2017, automático, con 82.000 km, cámara de reversa y faros LED.",
     price: "$208,000",
     currency: "MXN",
@@ -143,6 +157,10 @@ const records = [
     year: 2017,
     cat: "van",
     img: sienna.url,
+    extraPhotos: [siennaExtra1, siennaExtra2, siennaExtra3, siennaExtra4, siennaExtra5].map((photo, index) => ({
+      src: photo.url,
+      label: `Fotografía adicional ${index + 1}`,
+    })),
     desc: "Toyota Sienna SE (Sport Edition) 2017, automática, con 87.000 km, interiores de piel y aire de triple zona.",
     price: null,
     specs: {
