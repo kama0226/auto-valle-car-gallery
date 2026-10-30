@@ -1,4 +1,11 @@
 import jetta from "@/assets/volkswagen-jetta-2018.png.asset.json";
+import rogueExtra1 from "@/assets/nissan-rogue-2018-extra-1.png.asset.json";
+import rogueExtra2 from "@/assets/nissan-rogue-2018-extra-2.png.asset.json";
+import rogueExtra3 from "@/assets/nissan-rogue-2018-extra-3.png.asset.json";
+import rogueExtra4 from "@/assets/nissan-rogue-2018-extra-4.png.asset.json";
+import rogueExtra5 from "@/assets/nissan-rogue-2018-extra-5.png.asset.json";
+import rogueExtra6 from "@/assets/nissan-rogue-2018-extra-6.png.asset.json";
+import rogueExtra7 from "@/assets/nissan-rogue-2018-extra-7.png.asset.json";
 import corollaExtra1 from "@/assets/toyota-corolla-2017-extra-1.png.asset.json";
 import corollaExtra2 from "@/assets/toyota-corolla-2017-extra-2.png.asset.json";
 import corollaExtra3 from "@/assets/toyota-corolla-2017-extra-3.png.asset.json";
@@ -245,6 +252,10 @@ const records = [
     year: 2018,
     cat: "suv",
     img: rogue.url,
+    extraPhotos: [rogueExtra1, rogueExtra2, rogueExtra3, rogueExtra4, rogueExtra5, rogueExtra6, rogueExtra7].map((photo, index) => ({
+      src: photo.url,
+      label: `Fotografía adicional ${index + 1}`,
+    })),
     desc: "Nissan Rogue (X-Trail) SV AWD 2018, automática, con 85.000 km, tracción integral y llantas nuevas.",
     price: "$195,000",
     currency: "MXN",
