@@ -1,4 +1,10 @@
 import jetta from "@/assets/volkswagen-jetta-2018.png.asset.json";
+import jetta2018Extra1 from "@/assets/volkswagen-jetta-2018-extra-1.png.asset.json";
+import jetta2018Extra2 from "@/assets/volkswagen-jetta-2018-extra-2.png.asset.json";
+import jetta2018Extra3 from "@/assets/volkswagen-jetta-2018-extra-3.png.asset.json";
+import jetta2018Extra4 from "@/assets/volkswagen-jetta-2018-extra-4.png.asset.json";
+import jetta2018Extra5 from "@/assets/volkswagen-jetta-2018-extra-5.png.asset.json";
+import jetta2018Extra6 from "@/assets/volkswagen-jetta-2018-extra-6.png.asset.json";
 import corolla from "@/assets/toyota-corolla-2017.png.asset.json";
 import sienna from "@/assets/toyota-sienna-2017.png.asset.json";
 import rogue from "@/assets/nissan-rogue-2018.png.asset.json";
@@ -48,6 +54,10 @@ const records = [
     year: 2018,
     cat: "sedan",
     img: jetta.url,
+    extraPhotos: [jetta2018Extra1, jetta2018Extra2, jetta2018Extra3, jetta2018Extra4, jetta2018Extra5, jetta2018Extra6].map((photo, index) => ({
+      src: photo.url,
+      label: `Fotografía adicional ${index + 1}`,
+    })),
     desc: "Volkswagen Jetta TSI, versión SEL (más equipado), con motor 1.8 turbo y transmisión automática.",
     price: "$178,000",
     currency: "MXN",
