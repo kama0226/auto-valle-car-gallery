@@ -11,6 +11,7 @@
 - [x] Replace Corvette with owner's Toyota Corolla 2017, supplied photo and specifications; verify catalog and details.
 - [x] Replace Mustang with owner's available Volkswagen Jetta 2018, real photo and supplied specifications; verify catalog and details.
 - [x] Replace Ram with unavailable Volkswagen Jetta GLI 2016 ($195,000 MXN); gray out unavailable cards in catalog while keeping details accessible.
+- [x] Jetta 2017: new cover photo plus five additional gallery photos supplied by owner.
 - [x] Replace duplicate Ram and Cadillac pictures with distinct, clearly identified illustrative images; explain the change simply.
 - [x] Shared vehicle records and clickable catalog cards, preserving existing data.
 - [x] Six detail pages with technical information, gallery, related cars, navigation and theme switch.
