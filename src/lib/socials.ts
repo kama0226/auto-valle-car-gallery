@@ -1,6 +1,10 @@
 // Configure only verified owner-provided contact URLs here.
 export const SOCIAL_URLS: Record<'whatsapp' | 'instagram' | 'facebook' | 'tiktok' | 'youtube', string> = {
-  whatsapp: '', instagram: '', facebook: '', tiktok: '', youtube: '',
+  whatsapp: '',
+  instagram: 'https://www.instagram.com/del_valle_cars_cln',
+  facebook: '',
+  tiktok: 'https://www.tiktok.com/@s.millang',
+  youtube: '',
 };
 export function whatsappLink(configured: string, message: string): string | undefined {
   if (!configured) return undefined;
