@@ -19,4 +19,4 @@
 
 # Importación
 - [x] Importar el código de Auto Valle desde el ZIP subido a este proyecto
-- [ ] Verificar que la página se ve igual que la publicada
+- [x] Verificar que la página se ve igual que la publicada
