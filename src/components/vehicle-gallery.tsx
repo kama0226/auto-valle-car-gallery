@@ -18,6 +18,5 @@ export function VehicleGallery({ car }: { car: Vehicle }) {
     </div>
     <div className="mt-3 flex gap-3 overflow-x-auto pb-2">{car.photos.map((photo, i) => <Button key={`${photo.src}-${i}`} variant="ghost" onClick={() => api?.scrollTo(i)} aria-label={`Ver fotografía ${i + 1}: ${photo.label}`} aria-pressed={selected === i} className={`h-20 w-28 shrink-0 overflow-hidden rounded-md border-2 p-0 ${selected === i ? 'border-primary' : 'border-transparent'}`}><img src={photo.src} alt="" className="h-full w-full object-cover" /></Button>)}</div>
     {car.photos.length === 1 && <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground"><Images className="size-4 shrink-0" />Fotografías adicionales: Consultar información.</p>}
-    {['ram-1500', 'cadillac-eldorado'].includes(car.slug) && <p className="mt-2 text-sm text-muted-foreground">Imagen ilustrativa generada; no corresponde a una unidad en venta. Fotografías reales por confirmar.</p>}
   </section>;
 }

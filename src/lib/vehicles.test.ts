@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CARS, CATEGORY_OPTIONS, getVehicle, priceLabel, relatedVehicles, vehicleSpec } from './vehicles';
+import { CARS, CATEGORY_OPTIONS, getVehicle, isUnavailable, priceLabel, relatedVehicles, vehicleSpec } from './vehicles';
 import { whatsappLink } from './socials';
 
 describe('Vehicle information rules', () => {
@@ -79,8 +79,8 @@ describe('Vehicle information rules', () => {
   it('defines the five category identifiers in the required order', () => {
     expect(CATEGORY_OPTIONS.map(c => c.id)).toEqual(['sedan', 'suv', 'van', 'trabajo', 'deportivos']);
   });
-  it('filters work pickups without relabeling classic coupes as sedans', () => {
-    expect(CARS.filter(c => c.cat === 'trabajo').map(c => c.slug)).toEqual(['ram-1500']);
+  it('filters categories without relabeling classic coupes as sedans', () => {
+    expect(CARS.filter(c => c.cat === 'trabajo').map(c => c.slug)).toEqual([]);
     expect(CARS.filter(c => c.cat === 'clasicos').map(c => c.slug)).toEqual([]);
     expect(CARS.filter(c => c.cat === 'suv').map(c => c.slug)).toEqual(['nissan-rogue-2018']);
     expect(CARS.filter(c => c.cat === 'van').map(c => c.slug)).toEqual(['toyota-sienna-2017']);
@@ -88,7 +88,7 @@ describe('Vehicle information rules', () => {
   it('keeps supplied Jetta and Corolla prices and years and preserves the other vehicles', () => {
     expect(CARS.map(c => [c.name, c.year, c.price])).toEqual([
       ['Volkswagen Jetta', 2018, '$178,000'], ['Toyota Corolla', 2017, '$208,000'],
-      ['Toyota Sienna', 2017, null], ['Ram 1500', 2023, '$45,500'],
+      ['Toyota Sienna', 2017, null], ['Volkswagen Jetta', 2016, '$195,000'],
       ['Nissan Rogue', 2018, '$195,000'], ['Volkswagen Jetta', 2017, '$182,000'],
     ]);
   });
@@ -99,16 +99,28 @@ describe('Vehicle information rules', () => {
     expect(vehicleSpec(car, 'Ubicación')).toBe('Culiacán Rosales, Sinaloa');
     expect(vehicleSpec(car, 'Disponibilidad')).toBe('Disponible');
   });
+  it('replaces the Ram with the unavailable 2016 Jetta GLI sedan', () => {
+    expect(getVehicle('ram-1500')).toBeUndefined();
+    const car = getVehicle('volkswagen-jetta-2016')!;
+    expect(car).toMatchObject({ name: 'Volkswagen Jetta', year: 2016, cat: 'sedan', model: 'Jetta GLI' });
+    expect(car.img).toContain('/volkswagen-jetta-2016.png');
+    expect(priceLabel(car)).toBe('$195,000 MXN');
+    expect(vehicleSpec(car, 'Disponibilidad')).toBe('No disponible');
+    expect(vehicleSpec(car, 'Ubicación')).toBe('Culiacán Rosales, Sinaloa');
+    expect(vehicleSpec(car, 'Estado general')).toBe('Excelentes condiciones');
+    expect(vehicleSpec(car, 'Kilometraje')).toBe('69.000 km');
+  });
+  it('marks only vehicles recorded as No disponible as unavailable', () => {
+    expect(CARS.filter(isUnavailable).map(c => c.slug)).toEqual(['volkswagen-jetta-2016']);
+  });
   it('shows Consultar información for unknown data, not invented specifications', () => {
     for (const car of CARS) expect(vehicleSpec(car, 'VIN')).toBe('Consultar información');
-    for (const car of CARS.filter(car => !['toyota-corolla-2017', 'volkswagen-jetta-2018', 'volkswagen-jetta-2017', 'toyota-sienna-2017'].includes(car.slug))) expect(vehicleSpec(car, 'Ubicación')).toBe('Consultar información');
+    for (const car of CARS.filter(car => !['toyota-corolla-2017', 'volkswagen-jetta-2018', 'volkswagen-jetta-2017', 'volkswagen-jetta-2016', 'toyota-sienna-2017'].includes(car.slug))) expect(vehicleSpec(car, 'Ubicación')).toBe('Consultar información');
   });
   it('does not fabricate additional photos', () => { for (const car of CARS) expect(car.photos).toEqual([{ src: car.img, label: 'Fotografía del catálogo' }]); });
-  it('assigns different images to Ram and Sienna, and both Jettas', () => {
-    const ram = getVehicle('ram-1500');
-    const van = getVehicle('toyota-sienna-2017');
-    expect(ram?.img).not.toBe(van?.img);
-    expect(getVehicle('volkswagen-jetta-2017')?.img).not.toBe(getVehicle('volkswagen-jetta-2018')?.img);
+  it('assigns different images to all three Jettas', () => {
+    const imgs = ['volkswagen-jetta-2016', 'volkswagen-jetta-2017', 'volkswagen-jetta-2018'].map(s => getVehicle(s)?.img);
+    expect(new Set(imgs).size).toBe(3);
   });
   it('resolves each car exclusively and rejects unknown vehicles', () => {
     expect(new Set(CARS.map(c => c.slug)).size).toBe(6);

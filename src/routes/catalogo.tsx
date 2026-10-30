@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { CARS, CATEGORY_OPTIONS, priceLabel } from "@/lib/vehicles";
+import { CARS, CATEGORY_OPTIONS, isUnavailable, priceLabel } from "@/lib/vehicles";
 import { ValleHeader } from "@/components/valle-header";
 
 const CAT_IDS = ["sedan", "suv", "van", "trabajo", "deportivos"] as const;
@@ -62,11 +62,14 @@ function Catalogo() {
           </label>
         </div>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {cars.map((c) => (
-            <article key={c.slug} className="group overflow-hidden rounded-2xl bg-card text-card-foreground shadow-card transition duration-300 hover:-translate-y-2">
-              <Link to="/autos/$slug" params={{ slug: c.slug }} aria-label={`Ver detalles de ${c.name} ${c.year}`} className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset">
-                <div className="overflow-hidden">
+          {cars.map((c) => {
+            const unavailable = isUnavailable(c);
+            return (
+            <article key={c.slug} className={`group relative overflow-hidden rounded-2xl bg-card text-card-foreground shadow-card transition duration-300 hover:-translate-y-2 ${unavailable ? "opacity-75 grayscale" : ""}`}>
+              <Link to="/autos/$slug" params={{ slug: c.slug }} aria-label={`Ver detalles de ${c.name} ${c.year}${unavailable ? " (No disponible)" : ""}`} className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset">
+                <div className="relative overflow-hidden">
                   <img src={c.img} alt={c.name} loading="lazy" width={1024} height={768} className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105" />
+                  {unavailable && <span className="absolute left-4 top-4 rounded-full bg-foreground px-4 py-1.5 text-sm font-bold uppercase text-background">No disponible</span>}
                 </div>
                 <div className="p-6">
                   <div className="flex items-baseline justify-between gap-2">
@@ -74,12 +77,12 @@ function Catalogo() {
                     <span className="text-sm font-semibold text-muted-foreground">{c.year}</span>
                   </div>
                   <p className="mt-2 text-muted-foreground">{c.desc}</p>
-                  {["ram-1500", "cadillac-eldorado"].includes(c.slug) && <p className="mt-2 text-xs text-muted-foreground">Imagen ilustrativa generada; no corresponde a una unidad en venta.</p>}
                   <p className="mt-4 text-2xl font-bold text-primary">{priceLabel(c)}</p>
                 </div>
               </Link>
             </article>
-          ))}
+            );
+          })}
         </div>
         {cars.length === 0 && <p className="mt-10 text-center text-lg text-muted-foreground">{q.trim() ? "No encontramos autos con esa búsqueda." : "Por ahora no hay vehículos registrados en esta categoría."}</p>}
       </main>
