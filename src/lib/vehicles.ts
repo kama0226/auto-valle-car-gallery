@@ -2,7 +2,7 @@ import jetta from "@/assets/volkswagen-jetta-2018.png.asset.json";
 import corolla from "@/assets/toyota-corolla-2017.png.asset.json";
 import sienna from "@/assets/toyota-sienna-2017.png.asset.json";
 import rogue from "@/assets/nissan-rogue-2018.png.asset.json";
-import ram from "@/assets/ram-1500.jpg";
+import jetta2016 from "@/assets/volkswagen-jetta-2016.png.asset.json";
 import jetta2017 from "@/assets/volkswagen-jetta-2017.png.asset.json";
 
 export const CATEGORY_OPTIONS = [
@@ -159,16 +159,48 @@ const records = [
     ],
   },
   {
-    slug: "ram-1500",
-    name: "Ram 1500",
-    brand: "Ram",
-    model: "1500",
-    year: 2023,
-    cat: "trabajo",
-    img: ram,
-    desc: "Confort de lujo con gran capacidad de remolque.",
-    price: "$45,500",
-    specs: {},
+    slug: "volkswagen-jetta-2016",
+    name: "Volkswagen Jetta",
+    brand: "Volkswagen",
+    model: "Jetta GLI",
+    year: 2016,
+    cat: "sedan",
+    img: jetta2016.url,
+    desc: "Volkswagen Jetta GLI 2016, 4 cilindros, automático, con 69.000 km, quemacocos y sonido Fender.",
+    price: "$195,000",
+    currency: "MXN",
+    priceConfirmed: true,
+    specs: {
+      Kilometraje: "69.000 km",
+      Cilindros: "4",
+      Transmisión: "Automática",
+      "Color exterior": "Negro",
+      "Color interior": "Negro",
+      "Estado general": "Excelentes condiciones",
+      Disponibilidad: "No disponible",
+      Ubicación: "Culiacán Rosales, Sinaloa",
+    },
+    equipment: [
+      "Cambios al volante",
+      "Aire acondicionado",
+      "Cámara de reversa",
+      "Sensores de proximidad",
+      "Clúster digital",
+      "Apple CarPlay y Android Auto de agencia",
+      "Faros LED delanteros secuenciales",
+      "Calaveras traseras LED",
+      "Quemacocos",
+      "Asientos de piel con costuras rojas",
+      "Sonido Fender",
+      "Encendido de botón",
+      "Llave de presencia",
+    ],
+    sellerNotes: [
+      "Muy bonito, sin detalles",
+      "Se va rodando a donde quiera",
+      "Legalizado por pedimento",
+      "Listo para factura y placas a su nombre",
+    ],
   },
   {
     slug: "nissan-rogue-2018",
@@ -257,6 +289,7 @@ export const CARS: Vehicle[] = records.map((car) => ({
   photos: [{ src: car.img, label: "Fotografía del catálogo" }],
 }));
 export const getVehicle = (slug: string) => CARS.find((car) => car.slug === slug);
+export const isUnavailable = (car: Vehicle) => car.specs["Disponibilidad"] === "No disponible";
 export const SPEC_LABELS = [
   "Marca",
   "Modelo",

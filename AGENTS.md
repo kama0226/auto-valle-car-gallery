@@ -19,3 +19,4 @@
 - Store currency, confirmed-price status, equipment and seller notes with each vehicle; render prices through the shared formatter so real listings never inherit demo-dollar labels.
 - Represent missing vehicle prices as null and show the shared unknown-data label without currency or demo-price claims, so replacements do not inherit unrelated prices.
 - Redirect replaced vehicle detail URLs to their replacement listings so existing links stay usable.
+- Derive vehicle unavailability from the recorded "Disponibilidad" spec via the shared helper so catalog styling and details never disagree.
