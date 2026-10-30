@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CARS, CATEGORY_OPTIONS, getVehicle, relatedVehicles, vehicleSpec } from './vehicles';
+import { CARS, CATEGORY_OPTIONS, getVehicle, priceLabel, relatedVehicles, vehicleSpec } from './vehicles';
 import { whatsappLink } from './socials';
 
 describe('Vehicle information rules', () => {
@@ -81,7 +81,7 @@ describe('Vehicle information rules', () => {
   });
   it('filters work pickups without relabeling classic coupes as sedans', () => {
     expect(CARS.filter(c => c.cat === 'trabajo').map(c => c.slug)).toEqual(['ram-1500']);
-    expect(CARS.filter(c => c.cat === 'clasicos').map(c => c.slug)).toEqual(['cadillac-eldorado']);
+    expect(CARS.filter(c => c.cat === 'clasicos').map(c => c.slug)).toEqual([]);
     expect(CARS.filter(c => c.cat === 'suv').map(c => c.slug)).toEqual(['nissan-rogue-2018']);
     expect(CARS.filter(c => c.cat === 'van').map(c => c.slug)).toEqual(['toyota-sienna-2017']);
   });
@@ -89,24 +89,26 @@ describe('Vehicle information rules', () => {
     expect(CARS.map(c => [c.name, c.year, c.price])).toEqual([
       ['Volkswagen Jetta', 2018, '$178,000'], ['Toyota Corolla', 2017, '$208,000'],
       ['Toyota Sienna', 2017, null], ['Ram 1500', 2023, '$45,500'],
-      ['Nissan Rogue', 2018, '$195,000'], ['Cadillac Eldorado', 1959, '$88,000'],
+      ['Nissan Rogue', 2018, '$195,000'], ['Volkswagen Jetta', 2017, '$182,000'],
     ]);
+  });
+  it('lists the 2017 Jetta with the supplied MXN price and status', () => {
+    const car = getVehicle('volkswagen-jetta-2017')!;
+    expect(priceLabel(car)).toBe('$182,000 MXN');
+    expect(vehicleSpec(car, 'Estado general')).toBe('Excelentes condiciones');
+    expect(vehicleSpec(car, 'Ubicación')).toBe('Culiacán Rosales, Sinaloa');
+    expect(vehicleSpec(car, 'Disponibilidad')).toBe('Disponible');
   });
   it('shows Consultar información for unknown data, not invented specifications', () => {
     for (const car of CARS) expect(vehicleSpec(car, 'VIN')).toBe('Consultar información');
-    for (const car of CARS.filter(car => !['toyota-corolla-2017', 'volkswagen-jetta-2018', 'toyota-sienna-2017'].includes(car.slug))) expect(vehicleSpec(car, 'Ubicación')).toBe('Consultar información');
+    for (const car of CARS.filter(car => !['toyota-corolla-2017', 'volkswagen-jetta-2018', 'volkswagen-jetta-2017', 'toyota-sienna-2017'].includes(car.slug))) expect(vehicleSpec(car, 'Ubicación')).toBe('Consultar información');
   });
   it('does not fabricate additional photos', () => { for (const car of CARS) expect(car.photos).toEqual([{ src: car.img, label: 'Fotografía del catálogo' }]); });
-  it('assigns different images to Ram and Sienna, and Cadillac and Chevrolet', () => {
+  it('assigns different images to Ram and Sienna, and both Jettas', () => {
     const ram = getVehicle('ram-1500');
     const van = getVehicle('toyota-sienna-2017');
-    const cadillac = getVehicle('cadillac-eldorado');
-    const suvRogue = getVehicle('nissan-rogue-2018');
-    expect(ram).toBeDefined();
-    expect(cadillac).toBeDefined();
-    expect(van).toBeDefined();
     expect(ram?.img).not.toBe(van?.img);
-    expect(cadillac?.img).not.toBe(suvRogue?.img);
+    expect(getVehicle('volkswagen-jetta-2017')?.img).not.toBe(getVehicle('volkswagen-jetta-2018')?.img);
   });
   it('resolves each car exclusively and rejects unknown vehicles', () => {
     expect(new Set(CARS.map(c => c.slug)).size).toBe(6);

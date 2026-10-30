@@ -3,7 +3,7 @@ import corolla from "@/assets/toyota-corolla-2017.png.asset.json";
 import sienna from "@/assets/toyota-sienna-2017.png.asset.json";
 import rogue from "@/assets/nissan-rogue-2018.png.asset.json";
 import ram from "@/assets/ram-1500.jpg";
-import cadillac from "@/assets/cadillac-eldorado.jpg";
+import jetta2017 from "@/assets/volkswagen-jetta-2017.png.asset.json";
 
 export const CATEGORY_OPTIONS = [
   { id: "sedan", label: "SEDAN" },
@@ -214,16 +214,42 @@ const records = [
     ],
   },
   {
-    slug: "cadillac-eldorado",
-    name: "Cadillac Eldorado",
-    brand: "Cadillac",
-    model: "Eldorado",
-    year: 1959,
-    cat: "clasicos",
-    img: cadillac,
-    desc: "Elegancia clásica americana con presencia única.",
-    price: "$88,000",
-    specs: {},
+    slug: "volkswagen-jetta-2017",
+    name: "Volkswagen Jetta",
+    brand: "Volkswagen",
+    model: "Jetta TSI",
+    year: 2017,
+    cat: "sedan",
+    img: jetta2017.url,
+    desc: "Volkswagen Jetta TSI 2017, versión equipada, motor 1.4 TSI de 4 cilindros, automático, con 82.000 km.",
+    price: "$182,000",
+    currency: "MXN",
+    priceConfirmed: true,
+    specs: {
+      Kilometraje: "82.000 km",
+      Motor: "1.4 TSI",
+      Cilindros: "4",
+      Transmisión: "Automática",
+      "Color exterior": "Negro",
+      "Color interior": "Negro",
+      "Estado general": "Excelentes condiciones",
+      Disponibilidad: "Disponible",
+      Ubicación: "Culiacán Rosales, Sinaloa",
+    },
+    equipment: [
+      "Pantalla",
+      "Cámara de reversa",
+      "Sensores de rebase",
+      "Sensores de tráfico cruzado",
+      "Interiores en piel",
+      "Llave de presencia",
+      "Encendido de botón",
+    ],
+    sellerNotes: [
+      "Legalizado por pedimento",
+      "Título limpio",
+      "Sale factura a nombre del comprador",
+    ],
   },
 ] satisfies Omit<Vehicle, "photos">[];
 export const CARS: Vehicle[] = records.map((car) => ({
