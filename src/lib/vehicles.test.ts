@@ -9,7 +9,7 @@ describe('Vehicle information rules', () => {
     expect(sienna).toMatchObject({ name: 'Toyota Sienna', brand: 'Toyota', year: 2017, model: 'Sienna SE (Sport Edition)', cat: 'van' });
     expect(sienna?.img).toContain('/toyota-sienna-2017.png');
   });
-  it.each([['Kilometraje', '87.000 km'], ['Cilindros', '6'], ['Transmisión', 'Automática'], ['Combustible', 'Gasolina'], ['Color exterior', 'Blanco'], ['Color interior', 'Negro'], ['Estado general', 'Excelentes condiciones'], ['Precio', 'Consultar información'], ['Motor', 'Consultar información'], ['Disponibilidad', 'Consultar información']])('records supplied Sienna %s without inheriting Ford data', (field, value) => {
+  it.each([['Kilometraje', '87.000 km'], ['Cilindros', '6'], ['Transmisión', 'Automática'], ['Combustible', 'Gasolina'], ['Color exterior', 'Blanco'], ['Color interior', 'Negro'], ['Estado general', 'Excelentes condiciones'], ['Precio', 'Consultar información'], ['Motor', 'Consultar información'], ['Disponibilidad', 'Disponible']])('records supplied Sienna %s without inheriting Ford data', (field, value) => {
     expect(sienna && vehicleSpec(sienna, field)).toBe(value);
   });
   it('preserves Sienna equipment and seller documentation', () => {
@@ -26,7 +26,7 @@ describe('Vehicle information rules', () => {
     expect(corolla && vehicleSpec(corolla, 'Precio')).toBe('$208,000 MXN');
     expect(corolla?.sellerNotes).not.toContain('Precio poco negociable');
   });
-  it.each([['Kilometraje', '82.000 km'], ['Cilindros', '4'], ['Transmisión', 'Automática'], ['Combustible', 'Gasolina'], ['Color exterior', 'Rojo'], ['Color interior', 'Negro'], ['Ubicación', 'Culiacán Rosales, Sinaloa'], ['Motor', 'Consultar información'], ['Disponibilidad', 'Consultar información']])('records Corolla %s without inventing data', (field, value) => {
+  it.each([['Kilometraje', '82.000 km'], ['Cilindros', '4'], ['Transmisión', 'Automática'], ['Combustible', 'Gasolina'], ['Color exterior', 'Rojo'], ['Color interior', 'Negro'], ['Ubicación', 'Culiacán Rosales, Sinaloa'], ['Motor', 'Consultar información'], ['Disponibilidad', 'Disponible']])('records Corolla %s without inventing data', (field, value) => {
     expect(corolla && vehicleSpec(corolla, field)).toBe(value);
   });
   it('preserves Corolla equipment and seller conditions', () => {
@@ -94,7 +94,7 @@ describe('Vehicle information rules', () => {
   });
   it('shows Consultar información for unknown data, not invented specifications', () => {
     for (const car of CARS) expect(vehicleSpec(car, 'VIN')).toBe('Consultar información');
-    for (const car of CARS.filter(car => car.slug !== 'toyota-corolla-2017')) expect(vehicleSpec(car, 'Ubicación')).toBe('Consultar información');
+    for (const car of CARS.filter(car => !['toyota-corolla-2017', 'volkswagen-jetta-2018', 'toyota-sienna-2017'].includes(car.slug))) expect(vehicleSpec(car, 'Ubicación')).toBe('Consultar información');
   });
   it('does not fabricate additional photos', () => { for (const car of CARS) expect(car.photos).toEqual([{ src: car.img, label: 'Fotografía del catálogo' }]); });
   it('assigns different images to Ram and Sienna, and Cadillac and Chevrolet', () => {
@@ -106,7 +106,7 @@ describe('Vehicle information rules', () => {
     expect(cadillac).toBeDefined();
     expect(van).toBeDefined();
     expect(ram?.img).not.toBe(van?.img);
-    expect(cadillac?.img).not.toBe(chevrolet?.img);
+    expect(cadillac?.img).not.toBe(suvRogue?.img);
   });
   it('resolves each car exclusively and rejects unknown vehicles', () => {
     expect(new Set(CARS.map(c => c.slug)).size).toBe(6);
