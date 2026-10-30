@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CARS, CATEGORY_OPTIONS, getVehicle, relatedVehicles, vehicleSpec } from './vehicles';
+import { CARS, CATEGORY_OPTIONS, getVehicle, priceLabel, relatedVehicles, vehicleSpec } from './vehicles';
 import { whatsappLink } from './socials';
 
 describe('Vehicle information rules', () => {
