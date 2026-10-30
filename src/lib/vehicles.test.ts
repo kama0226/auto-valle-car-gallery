@@ -9,7 +9,7 @@ describe('Vehicle information rules', () => {
     expect(sienna).toMatchObject({ name: 'Toyota Sienna', brand: 'Toyota', year: 2017, model: 'Sienna SE (Sport Edition)', cat: 'van' });
     expect(sienna?.img).toContain('/toyota-sienna-2017.png');
   });
-  it.each([['Kilometraje', '87.000 km'], ['Cilindros', '6'], ['Transmisión', 'Automática'], ['Combustible', 'Gasolina'], ['Color exterior', 'Blanco'], ['Color interior', 'Negro'], ['Estado general', 'Excelentes condiciones'], ['Precio', 'Consultar información'], ['Motor', 'Consultar información'], ['Disponibilidad', 'Disponible']])('records supplied Sienna %s without inheriting Ford data', (field, value) => {
+  it.each([['Kilometraje', '87.000 km'], ['Cilindros', '6'], ['Transmisión', 'Automática'], ['Combustible', 'Gasolina'], ['Color exterior', 'Blanco'], ['Color interior', 'Negro'], ['Estado general', 'Excelentes condiciones'], ['Precio', '$295,000 MXN'], ['Motor', 'Consultar información'], ['Disponibilidad', 'Disponible']])('records supplied Sienna %s without inheriting Ford data', (field, value) => {
     expect(sienna && vehicleSpec(sienna, field)).toBe(value);
   });
   it('preserves Sienna equipment and seller documentation', () => {
