@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CalendarDays, Copy, Download, Heart, MessageCircle, Send } from 'lucide-react';
+import { Copy, Download, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { SOCIAL_URLS, whatsappLink } from '@/lib/socials';
@@ -19,12 +19,7 @@ export function VehicleContact({ car }: { car: Vehicle }) {
   }
   return <>
     <div className="grid gap-3" aria-label="Contactar sobre este vehículo">
-      <Button size="lg" className="h-12 w-full" onClick={() => open('Me interesa este vehículo')}><Heart />Me interesa este vehículo</Button>
-      <Button variant="outline" size="lg" className="h-12 w-full" onClick={() => open('Consultar por WhatsApp')}><MessageCircle />Consultar por WhatsApp</Button>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-        <Button variant="outline" className="h-12" onClick={() => open('Solicitar información')}><Send />Solicitar información</Button>
-        <Button variant="outline" className="h-12" onClick={() => open('Agendar una visita')}><CalendarDays />Agendar una visita</Button>
-      </div>
+      <Button size="lg" className="h-12 w-full bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90" onClick={() => open('Consultar por WhatsApp')}><MessageCircle />Consultar por WhatsApp</Button>
     </div>
     <Dialog open={Boolean(intent)} onOpenChange={open => { if (!open) setIntent(''); }}>
       <DialogContent className="max-h-[90vh] w-[calc(100%-2rem)] overflow-y-auto rounded-lg">
