@@ -44,7 +44,8 @@ export default defineConfig(
           server: { entry: "server" },
           pages: ["/", "/catalogo", ...vehicleSlugs.map((slug) => `/autos/${slug}`)].map((path) => ({ path })),
           prerender: { enabled: true, autoStaticPathsDiscovery: false, crawlLinks: false },
-          spa: { enabled: true },
+          // 404.html: a blank app shell so unknown or old links (e.g. replaced vehicles) still load and redirect.
+          spa: { enabled: true, prerender: { outputPath: "/404.html" } },
         },
       }
     : {
