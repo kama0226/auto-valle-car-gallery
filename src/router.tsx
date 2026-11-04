@@ -10,6 +10,8 @@ export const getRouter = () => {
     context: { queryClient },
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
+    // GitHub Pages serves each page as folder/index.html, so its URLs end in "/".
+    trailingSlash: import.meta.env.BASE_URL === "/" ? "never" : "always",
   });
 
   return router;

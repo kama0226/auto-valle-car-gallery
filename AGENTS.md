@@ -20,3 +20,4 @@
 - Represent missing vehicle prices as null and show the shared unknown-data label without currency or demo-price claims, so replacements do not inherit unrelated prices.
 - Redirect replaced vehicle detail URLs to their replacement listings so existing links stay usable.
 - Derive vehicle unavailability from the recorded "Disponibilidad" spec via the shared helper so catalog styling and details never disagree.
+- GitHub Pages builds are opt-in via `GITHUB_PAGES=true` (set only in `.github/workflows/deploy.yml`): they add the repo base path, prerender every page plus a 404 shell into `dist/client`, and point uploaded photos at the Lovable-hosted asset URLs, so the Lovable preview/published build stays unchanged.
