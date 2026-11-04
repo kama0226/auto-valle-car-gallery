@@ -42,9 +42,7 @@ export default defineConfig(
         vite: { base: GITHUB_PAGES_BASE },
         tanstackStart: {
           server: { entry: "server" },
-          pages: ["", "catalogo", ...vehicleSlugs.map((slug) => `autos/${slug}`)].map((path) => ({
-            path: GITHUB_PAGES_BASE + path,
-          })),
+          pages: ["/", "/catalogo", ...vehicleSlugs.map((slug) => `/autos/${slug}`)].map((path) => ({ path })),
           prerender: { enabled: true, autoStaticPathsDiscovery: false, crawlLinks: false },
           spa: { enabled: true },
         },
