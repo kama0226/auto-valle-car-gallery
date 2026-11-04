@@ -10,7 +10,7 @@ import type { Plugin } from "vite";
 
 // GitHub Pages build: only active when GITHUB_PAGES=true (set by .github/workflows/deploy.yml).
 // The Lovable preview and the Lovable published site keep using the default config below.
-const isGithubPages = process.env.GITHUB_PAGES === "true";
+const isGithubPages = process.env["GITHUB_PAGES"] === "true";
 const GITHUB_PAGES_BASE = "/auto-valle-car-gallery/";
 // Uploaded photos are served by the Lovable site; GitHub Pages loads them from there.
 const LOVABLE_ASSET_HOST = "https://auto-valle-car-gallery.lovable.app";
@@ -30,9 +30,9 @@ function absoluteLovableAssets(): Plugin {
 }
 
 // Every vehicle detail page is generated as its own HTML file for GitHub Pages.
-const vehicleSlugs = [...readFileSync("src/lib/vehicles.ts", "utf8").matchAll(/slug:\s*["']([^"']+)["']/g)].map(
-  (m) => m[1],
-);
+const vehicleSlugs = [...readFileSync("src/lib/vehicles.ts", "utf8").matchAll(/slug:\s*["']([^"']+)["']/g)]
+  .map((m) => m[1])
+  .filter((slug): slug is string => Boolean(slug));
 
 export default defineConfig(
   isGithubPages

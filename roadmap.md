@@ -22,3 +22,6 @@
 # Importación
 - [x] Importar el código de Auto Valle desde el ZIP subido a este proyecto
 - [x] Verificar que la página se ve igual que la publicada
+
+# GitHub Pages
+- [x] Static GitHub Pages build (base path, all pages prerendered, 404 fallback) with automatic deploy workflow; verified pages, styles, photos and links locally.
